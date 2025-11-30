@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tralive Clone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <style>
+    body {
+      overflow-x: hidden;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      transition: 0.3s;
+      
+    }
+  /* ========================= NAVBAR ========================= */
+.navbar {
+  width: 100%;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.navbar.scrolled {
+  background: #ffffff;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.08);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* ===== Desktop Menu ===== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a:hover{
+color: #0558ff;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  font-size: 16px;
+}
+
+/* ===== Desktop Dropdown ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 20px;
+  color: white;
+  left: 0;
+    background: linear-gradient(180deg, rgb(29, 74, 122) 0%, rgba(4, 33, 62, 0.961) 100%);
+  padding: 10px 0;
+  border-radius: 6px;
+  display: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-menu a:hover{
+  color: rgb(96, 194, 255);
+  background-color: #f9f4f427;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px 18px;
+  white-space: nowrap;
+  color: #fff5f5;
+}
+
+.call-btn {
+  padding: 10px 18px;
+  background: #f8c428;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* =========== Mobile Button =========== */
+.menu-btn {
+  width: 30px;
+  height: 24px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-btn div {
+  width: 100%;
+  height: 4px;
+  background: #000;
+  border-radius: 4px;
+}
+
+/* ===================== MOBILE NAV ===================== */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100%;
+  background: #fff;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: 0.35s;
+  z-index: 1200;
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #222;
+}
+
+/* ===== MOBILE DROPDOWN ===== */
+.mobile-dropdown {
+  width: 100%;
+}
+
+.mobile-drop-btn {
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.mobile-dropdown-content {
+  display: none;
+  padding-left: 15px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-dropdown-content.show {
+  display: flex;
+}
+
+.mobile-call-btn {
+  padding: 12px 18px;
+  background: #ffd829;
+  border-radius: 6px;
+  color: white;
+  display: inline-block;
+}
+
+/* ========= Backdrop ======== */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+  display: none;
+}
+
+.backdrop.show {
+  display: block;
+}
+
+/* ======== Responsive ======== */
+@media(max-width: 992px) {
+  .nav-links, .call-btn {
+    display: none;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+}
+
+
+    /* ================= HERO SECTION ================= */
+
+    .hero {
+      margin-top: 50px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-bg { width: 100%; position: relative; }
+    .hero-bg .bg { width: 100%; display: block; }
+
+    .hero-bg .car {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      pointer-events: none;
+    }
+
+    /* ================= TITLE + BUTTON ================= */
+
+    .one h1 {
+      text-align: center;
+      color: rgb(14, 49, 123);
+      margin-top: 150px;
+      font-size: 60px;
+    }
+
+    .one {
+      text-align: center;
+      margin-bottom: 120px;
+    }
+
+    .btn-slide {
+      position: relative;
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(180deg, rgb(41, 99, 162) 0%, rgba(1, 20, 39, 0.9) 100%);
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-slide::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffd505;
+      z-index: -1;
+      transition: top 0.35s ease;
+    }
+
+    .btn-slide:hover::after {
+      top: 0;
+    }
+
+    .btn-slide:hover {
+      color: #1e1e1e;
+    }
+
+    .drop-in {
+      opacity: 0;
+      transform: translateY(-40px);
+      animation: dropDown 0.7s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes dropDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+
+    @media (max-width: 768px){
+      nav{ display: none; }
+      .call-btn{ display: none; }
+      .menu-btn{ display: flex; }
+
+      .one h1{ font-size: 40px; }
+      .hero-bg .car{ width: 260px; }
+    }
+
+    @media (max-width: 576px){
+      header{ padding: 10px 20px; }
+      .logo{ font-size: 20px; }
+
+      .one h1{
+        font-size: 32px;
+        margin-top: 110px;
+      }
+      .btn-slide{
+        font-size: 16px;
+        padding: 10px 25px;
+      }
+      .hero-bg .car{ width: 200px; }
+    }
+    .div1{
+      margin-top: 120px;
+    }
+    .div1 h1{
+      color: rgb(10, 10, 125);
+    }
+
+    /* ===== SLIDER VARIABLES & STYLES ===== */
+    :root {
+      --card-width: 280px;
+      --gap: 28px;
+      --radius: 18px;
+      --shadow: 0 8px 22px rgba(0,0,0,0.12);
+      --transition: .35s ease;
+    }
+
+    /* ===== CONTAINER ===== */
+    .carousel-container {
+      width: 100%;
+      padding: 20px 0;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* ===== BUTTONS ===== */
+    .control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border: none;
+      width: 46px;
+      height: 46px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+      font-size: 20px;
+      color: #333;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .control:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    .control.left {
+      left: 8px;
+    }
+    .control.right {
+      right: 8px;
+    }
+
+    /* ===== VIEWPORT ===== */
+    .carousel .viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* ===== TRACK ===== */
+    .track {
+      display: flex;
+      
+      transition: transform .45s ease-in-out;
+      will-change: transform;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      width: var(--card-width);
+      margin: 20px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+    }
+
+    /* ===== CARD IMAGE ===== */
+    .card .media {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .card .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+
+    .card:hover .media img {
+      transform: scale(1.06);
+    }
+
+    /* ===== CONTENT ===== */
+    .card-content {
+      padding: 16px;
+    }
+
+    .card-content .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #222;
+    }
+
+    .card-content .meta {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .card-content .price {
+      color: #394ae6;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* ===== DOTS ===== */
+    .dots {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      background: #bbb;
+      border-radius: 50%;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: #333;
+      transform: scale(1.2);
+    }
+
+    /* ===== RESPONSIVE CARD WIDTHS ===== */
+    @media (max-width: 992px){
+      :root { --card-width: 240px; }
+    }
+
+    @media (max-width: 768px){
+      :root { --card-width: 200px; }
+    }
+
+    @media (max-width: 576px){
+      :root { --card-width: 160px; }
+    }
+.div2 p{
+  line-height: 40px;
+}
+.div2 h6{
+  color: #3d76e1;
+}
+.div2  h3{
+  color: #244890;
+  font-weight: bold;
+}.div3 {
+  background-image: 
+    linear-gradient(rgba(0,128,0,0.30), rgba(0,128,0,0.30)),
+    url("SL_102920_37340_24.jpg");
+  color: white;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+}
+
+.div3 p{
+  line-height: 32px;
+  font-size: 22px;
+}
+
+.div3 img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+/* fade-up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.div4 h4{
+  color: #0558ff;
+}
+.div4 h1{
+  color: #244890;
+}  .video-container {
+  width: 100%;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+/* ویدیو اصلی */
+.video-container .main-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* ضد خراب شدن */
+  transform: translate(-50%, -50%);
+  display: block;
+}
+
+/* PLAY BUTTON */
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  background: rgba(255, 255, 255, 0.7);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.play-btn:hover {
+  background: white;
+}
+
+  /* ========== پایه ========== */
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial, sans-serif;color:#222;}
+
+/* ========================= NAVBAR ========================= */
+.navbar {
+  width: 100%;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+  z-index: 1000;
+}
+.navbar.scrolled {
+  background: #ffffff;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.08);
+}
+.logo { font-size: 22px; font-weight: bold; color:#0e2f66 }
+
+/* desktop links */
+.nav-links { display:flex; gap:28px; list-style:none; margin:0; padding:0; align-items:center; }
+.nav-links a { text-decoration:none; color:#222; font-size:16px; transition:.2s; }
+.nav-links a:hover { color:#0558ff; }
+
+/* desktop dropdown */
+.dropdown { position:relative; }
+.dropdown-menu {
+  position:absolute; top:28px; left:0;
+  background: linear-gradient(180deg, rgb(29,74,122) 0%, rgba(4,33,62,0.96) 100%);
+  padding:10px 0; border-radius:8px; display:none; box-shadow:0 8px 30px rgba(4,33,62,0.18);
+  min-width:190px; z-index:1100;
+}
+.dropdown:hover .dropdown-menu { display:block; }
+.dropdown-menu a { display:block; padding:8px 16px; color:#fff; text-decoration:none; transition:.15s; }
+.dropdown-menu a:hover { color:#bfe8ff; background:rgba(255,255,255,0.03); }
+
+/* call button desktop */
+.call-btn { padding:10px 18px; background:#f8c428; color:#111; border-radius:8px; text-decoration:none; }
+
+/* mobile button */
+.menu-btn { width:34px; height:26px; display:none; flex-direction:column; justify-content:space-between; cursor:pointer; }
+.menu-btn div { height:4px; background:#111; border-radius:4px; }
+
+/* mobile nav */
+.mobile-nav {
+  position:fixed; top:0; right:-100%; width:78%; max-width:360px; height:100%;
+  background:#fff; padding:28px; display:flex; flex-direction:column; gap:12px;
+  transition:0.32s; z-index:1200; box-shadow:-8px 0 30px rgba(0,0,0,0.12);
+}
+.mobile-nav.active { right:0; }
+.mobile-nav a { color:#222; text-decoration:none; font-size:18px; padding:8px 0; }
+
+/* mobile dropdown */
+.mobile-drop-btn { font-size:18px; cursor:pointer; padding:10px 0; display:flex; justify-content:space-between; align-items:center; }
+.mobile-dropdown-content { display:none; padding-left:12px; flex-direction:column; gap:8px; }
+.mobile-dropdown-content.show { display:flex; }
+.mobile-call-btn { padding:12px 14px; background:#ffd829; border-radius:8px; color:#111; display:inline-block; text-decoration:none; }
+
+/* backdrop */
+.backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:1100; display:none; }
+.backdrop.show { display:block; }
+
+/* responsive */
+@media (max-width:992px){
+  .nav-links, .call-btn { display:none; }
+  .menu-btn { display:flex; }
+}
+
+/* ========== HERO VIDEO ========== */
+.page-wrap{ padding-top:78px; } /* to avoid navbar overlap */
+.video-section {
+  max-width:1200px; margin:28px auto;
+  height:70vh; min-height:360px; position:relative;
+  border-radius:20px; overflow:hidden; background:#000;
+  box-shadow:0 12px 36px rgba(2,24,63,0.12);
+}
+
+/* make sure video covers area and rounded corners apply via parent */
+.video-section video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  display:block;
+}
+
+/* play button */
+.play-btn {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:88px; height:88px; border-radius:50%; background:rgba(255,255,255,0.85);
+  display:flex; align-items:center; justify-content:center; font-size:38px; cursor:pointer;
+  transition:transform .18s ease, opacity .18s ease;
+  z-index:2;
+}
+.play-btn:hover{ transform:translate(-50%,-50%) scale(1.05); }
+
+/* optional overlay text area */
+.video-overlay {
+  position:absolute; left:24px; bottom:24px; color:#fff; z-index:2;
+  text-shadow:0 6px 18px rgba(0,0,0,0.45);
+}
+:root {
+  --slider-duration: 22s;
+  --slider-height: 260px;
+}
+
+/* کانتینر اسلایدر */
+.continuous-slider {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+/* ریل حرکت */
+.continuous-slider .track {
+  display: flex;
+  animation: scroll-left linear infinite;
+  animation-duration: var(--slider-duration);
+}
+
+/* هر عکس */
+.continuous-slider .item {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(100% / 5);
+  height: var(--slider-height);
+  overflow: hidden;
+}
+
+/* عکس */
+.continuous-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* لایه شفاف بعد از Hover */
+.continuous-slider .item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(237, 231, 173, 0.256);
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+/* آیکون IG */
+.insta-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  color: #170101;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  transition: 0.35s ease;
+  pointer-events: none;
+}
+
+/* Hover Effects */
+.continuous-slider .item:hover::after {
+  opacity: 1;
+}
+.continuous-slider .item:hover .insta-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* انیمیشن حرکت بی‌پایان */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ریسپانسیو */
+@media (max-width: 992px) {
+  :root { --slider-height: 220px; }
+  .continuous-slider .item { width: calc(100% / 3); }
+}
+@media (max-width: 768px) {
+  :root { --slider-height: 180px; }
+  .continuous-slider .item { width: calc(100% / 2); }
+}
+.track{
+  gap: 0;
+}
+/* ===== Footer Background Shape ===== */
+.tralive-footer {
+  background: #0d1b4c;
+  position: relative;
+  color: #fff;
+  padding-top: 120px;
+}
+
+/* برای موج سبز (قسمت بالایی) */
+.tralive-footer::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: url("https://preview.colorlib.com/theme/tralive/assets/img/shape/footer_top.png")
+    no-repeat center/cover;
+}
+
+/* اصلی فوتر */
+.footer-top {
+  padding-bottom: 60px;
+}
+
+.footer-logo img {
+  width: 180px;
+  margin-bottom: 20px;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-list li a {
+  color: #d5d8f3;
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+}
+
+.footer-list li a:hover {
+  color: #ffcc00;
+}
+
+.footer-social a {
+  display: inline-block;
+  margin-right: 10px;
+  color: white;
+  font-size: 18px;
+}
+
+.footer-phone {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+/* Bottom */
+.footer-bottom {
+  background: #091433;
+  text-align: center;
+  padding: 18px 0;
+  font-size: 14px;
+  color: #d5d8f3;
+  margin-top: 40px;
+}
+
+
+</style>
+  
+</head>
+
+<body>
+
+ <nav class="navbar">
+
+  <div class="logo">✈️ Tralive</div>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="text-primary">Home</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="about.html">About</a></li>
+
+    <!-- ===== DROPDOWN ===== -->
+    <li class="dropdown">
+      <a href="blog.html" class="drop-btn">Blog ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="event detail.html">Events Details</a></li>
+        <li><a href="single-blog.html">Blog Details</a></li>
+        <li><a href="">Element</a></li>
+      </ul>
+    </li>
+
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <!-- CALL BUTTON -->
+  <a class="call-btn"><i class="fa fa-phone"></i> +10 (67) 678 2567</a>
+
+  <!-- MOBILE BUTTON -->
+  <div class="menu-btn" id="menu-btn">
+    <div></div><div></div><div></div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html" class="text-primary">Home</a>
+  <a href="event.html">Events</a>
+  <a href="about.html">About</a>
+
+  <!-- DROPDOWN MOBILE -->
+  <div class="mobile-dropdown">
+    <p class="mobile-drop-btn">Blog ▾</p>
+    <div class="mobile-dropdown-content">
+      <a href="blog.html">Blog</a>
+      <a href="event detail.html">Events Details</a>
+      <a href="single-blog.html">Blog Details</a>
+      <a href="#">Element</a>
+    </div>
+  </div>
+
+  <a href="contact.html">Contact</a>
+  <a class="mobile-call-btn"><i class="fa fa-home"></i> +10 (67) 678 2567</a>
+</div>
+
+<div class="backdrop" id="backdrop"></div>
+
+
+  <section class="one">
+    <h1   class="drop-in">Lifelong memories just a <br>few seconds away</h1>
+    <a href="#" class="btn-slide drop-in mt-5">Explore Destinations</a>
+  </section>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img class="bg" src="https://preview.colorlib.com/theme/tralive/assets/img/hero/h1_hero1.png" />
+      <img class="car" src="https://preview.colorlib.com/theme/tralive/assets/img/hero/car.png" />
+    </div>
+  </section>
+
+  <section class="div1">
+   <h5 class="text-primary  text-center mt-5">Check our best promotional tour</h5>
+   <h1 class="fw-bold text-center mt-3 ">Upcoming Events</h1>
+  </section>
+
+
+  <!-- ====================== SLIDER START (اصلاح شده) ====================== -->
+  <section class="events-section container mt-4">
+    <div class="carousel-container" id="carousel">
+      <button class="control left" id="prev" aria-label="قبلی">◀</button>
+
+      <div class="carousel">
+        <div class="viewport">
+          <div class="track" id="track">
+<!-- CARD 1 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80" 
+         alt="Maldives Beach">
+  </div>
+  <div class="card-content">
+    <div class="title">Maldives Paradise</div>
+    <div class="meta">
+      <div>02 Jan - 09 Jan · <span style="color:#444; font-weight:600">7 Days</span></div>
+      <div class="price">$2800</div>
+    </div>
+  </div>
+</article>
+
+<!-- CARD 2 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80"
+         alt="Paris Tour">
+  </div>
+  <div class="card-content">
+    <div class="title">Paris, France</div>
+    <div class="meta">
+      <div>12 Feb - 18 Feb · <span style="color:#444; font-weight:600">6 Days</span></div>
+      <div class="price">$1900</div>
+    </div>
+  </div>
+</article>
+
+<!-- CARD 3 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80"
+         alt="Swiss Alps">
+  </div>
+  <div class="card-content">
+    <div class="title">Swiss Alps</div>
+    <div class="meta">
+      <div>01 Mar - 06 Mar · <span style="color:#444; font-weight:600">5 Days</span></div>
+      <div class="price">$2500</div>
+    </div>
+  </div>
+</article>
+
+<!-- CARD 4 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=80"
+         alt="Bali Island">
+  </div>
+  <div class="card-content">
+    <div class="title">Bali, Indonesia</div>
+    <div class="meta">
+      <div>10 Apr - 17 Apr · <span style="color:#444; font-weight:600">7 Days</span></div>
+      <div class="price">$1600</div>
+    </div>
+  </div>
+</article>
+
+<!-- CARD 5 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80"
+         alt="Dubai City">
+  </div>
+  <div class="card-content">
+    <div class="title">Dubai Luxury Tour</div>
+    <div class="meta">
+      <div>03 May - 08 May · <span style="color:#444; font-weight:600">5 Days</span></div>
+      <div class="price">$1800</div>
+    </div>
+  </div>
+</article>
+
+<!-- CARD 6 -->
+<article class="card">
+  <div class="media">
+    <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=1200&q=80"
+         alt="Japan Tokyo">
+  </div>
+  <div class="card-content">
+    <div class="title">Tokyo, Japan</div>
+    <div class="meta">
+      <div>22 May - 30 May · <span style="color:#444; font-weight:600">8 Days</span></div>
+      <div class="price">$3000</div>
+    </div>
+  </div>
+</article>
+
+
+          </div>
+        </div>
+      </div>
+
+      <button class="control right" id="next" aria-label="بعدی">▶</button>
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </section>
+  <!-- ====================== SLIDER END ====================== -->
+
+
+  <section class="container  mt-5 p-5">
+    <div class="row  mt-5  div2">
+      <div class="col-12 col-md-8  col-sm-12 col-lg-6 "><img src="couple-5963678_1280.webp" alt="" width="500px"></div>
+         <div class="col-12 col-md-4  col-sm-12 col-lg-6 ">
+          <h6>About Us</h6>
+          <h3 class="fw-bold ">Get ready for real <br> time adventure</h3>
+          <p class="text-muted">Let’s start your journey with us, your dream will come true. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
+            labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+             <a href="#" class="btn-slide drop-in mt-5">Book Your Destinations</a>
+         </div>
+    </div>
+  </section>
+<section class="div3 p-5 fade-up">
+  <div class="container mt-5 text-center">
+
+    <h2>What customers say</h2>
+
+    <p class="fw-bold">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Voluptatum temporibus rem fugit corporis est impedit sunt repellendus.
+    </p>
+
+    <div class="d-flex align-items-center justify-content-center mt-5">
+      <div>
+        <img src="OIP (10).webp" alt="" class="imgee">
+      </div>
+
+      <div class="ms-3">
+        <h6>Mark Anthony <br> CEO of Colorlib</h6>
+      </div>
+    </div>
+
+  </div>
+</section>
+ 
+<section class=" div4 container p-5 text-center">
+  <h4 >FAQ</h4>
+  <h1 class="fw-bold">Full range of travel service</h1>
+
+  <div class="row">
+    <div class="col-12 col-lg-6  col-md-4 col-sm-4">
+        <div class="container mt-3">
+ 
+          <div id="accordion" class="mt-5">
+             <div class="card  w-100">
+      <div class="card-header">
+        <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
+          Starts the automated process.
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+        <div class="card-body">
+          The automated process starts as soon as your clothes go into the machine. Duis cursus, mi quis viverra ornare.
+        </div>
+      </div>
+            </div>
+            <div class="card  w-100">
+      <div class="card-header">
+        <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
+        The automated process starts.
+
+      </a>
+      </div>
+      <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+        <div class="card-body">
+          The automated process starts as soon as your clothes go into the machine. Duis cursus, mi quis viverra ornare.
+        </div>
+      </div>
+            </div>
+              <div class="card  w-100">
+      <div class="card-header">
+        <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
+          Automated process starts.
+        </a>
+      </div>
+      <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+        <div class="card-body">
+         The automated process starts as soon as your clothes go into the machine. Duis cursus, mi quis viverra ornare.
+        </div>
+      </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6 col-md-8 col-sm-8">
+      <img src="premium_vector-1682269754510-fb7bff8c384d.avif" alt="" width="100%">
+    </div>
+
+  </div>
+
+  <div>
+      <a href="#" class="btn-slide drop-in mt-5">Book Your Destinations</a>
+  </div>
+</section>
+
+<section class="video-section  container">
+  <video id="heroVideo" muted loop playsinline>
+    <source src="3135808-hd_1920_1080_24fps.mp4" type="video/mp4">
+  </video>
+
+  <!-- PLAY BUTTON -->
+  <div class="play-btn" id="playBtn">▶</div>
+</section>
+<section style="margin-top: 100px;">
+  <div class="continuous-slider">
+    <div class="track">
+
+      <!-- 10 عکس اصلی -->
+      <div class="item">
+        <img src="https://picsum.photos/seed/p1/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p2/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p3/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p4/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p5/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p6/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p7/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p8/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p9/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <div class="item">
+        <img src="https://picsum.photos/seed/p10/1200/800" alt="">
+        <i class="fa-brands fa-instagram insta-icon"></i>
+      </div>
+
+      <!-- تکرار همان عکس‌ها برای حرکت بی‌پایان -->
+      <div class="item"><img src="https://picsum.photos/seed/p1/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p2/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p3/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p4/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p5/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p6/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p7/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p8/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p9/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+      <div class="item"><img src="https://picsum.photos/seed/p10/1200/800"><i class="fa-brands fa-instagram insta-icon"></i></div>
+
+    </div>
+  </div>
+</section>
+
+
+<footer class="tralive-footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <!-- LOGO + TEXT -->
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-logo">
+           <a href="" style="text-decoration: none; color: white; font-size: 40px;">  ✈️Tralive</a>
+          </div>
+          <p>
+            Land behold it created good saw after she'd Our set living. Signs midst dominion creepeth morning
+            labor is nisi ufsit aliquip.
+          </p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col-lg-2 col-md-6">
+          <h4>Navigation</h4>
+          <ul class="footer-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="bloge">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services -->
+        <div class="col-lg-3 col-md-6">
+          <h4>Services</h4>
+          <ul class="footer-list">
+            <li><a href="#">Blackforest</a></li>
+            <li><a href="#">Bodhubon</a></li>
+            <li><a href="#">Rongdhonu</a></li>
+            <li><a href="#">Meghrong</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-lg-3 col-md-6">
+          <h4>Contact Us</h4>
+          <p>76/A, Green Lane, Dhanmondi, NYC</p>
+          <p>demomail89@gmail.com</p>
+          <p class="footer-phone">+10 (78) 738-9083</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="footer-bottom">
+    <p>Copyright ©2025 All rights reserved | This template is made with 💙 by Colorlib</p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+<script>
+  const video = document.getElementById("heroVideo");
+  const playBtn = document.getElementById("playBtn");
+
+  playBtn.addEventListener("click", function () {
+    video.play();
+    playBtn.style.display = "none";
+  });
+</script>
+
+  <!-- بقیه محتوای سایت (اگر لازم است اضافه کن) -->
+<!-- ====================== FULL JAVASCRIPT ====================== -->
+
+<script>
+/* ============================================
+   SLIDER LOGIC
+============================================ */
+(function() {
+  const track = document.getElementById('track');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const dotsWrap = document.getElementById('dots');
+  const carousel = document.getElementById('carousel');
+
+  let cards = Array.from(track.children);
+  let index = 0;
+  let autoInterval = null;
+  const GAP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 28;
+
+  function cardsPerView() {
+    const w = window.innerWidth;
+    if (w < 576) return 1;
+    if (w < 992) return 2;
+    return 4;
+  }
+
+  function createDots() {
+    dotsWrap.innerHTML = '';
+    const total = cards.length;
+    const view = cardsPerView();
+    const pages = Math.max(1, total - view + 1);
+    for (let i = 0; i < pages; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.dataset.i = i;
+      d.addEventListener('click', () => { goTo(parseInt(d.dataset.i)); restartAuto(); });
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function update() {
+    cards = Array.from(track.children);
+    const cardW = cards[0].offsetWidth;
+    const move = (cardW + GAP) * index;
+    track.style.transform = `translateX(${-move}px)`;
+
+    Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  function goTo(i) {
+    const total = cards.length;
+    const view = cardsPerView();
+    const maxIndex = Math.max(0, total - view);
+    index = Math.max(0, Math.min(maxIndex, i));
+    update();
+  }
+
+  prev.addEventListener('click', () => { goTo(index - 1); restartAuto(); });
+  
+  next.addEventListener('click', () => { 
+    const total = cards.length;
+    const view = cardsPerView();
+    const maxIndex = Math.max(0, total - view);
+    if (index < maxIndex) goTo(index + 1);
+    else goTo(0);
+    restartAuto();
+  });
+
+  function startAuto() {
+    stopAuto();
+    autoInterval = setInterval(() => {
+      const total = cards.length;
+      const view = cardsPerView();
+      const maxIndex = Math.max(0, total - view);
+      index = index < maxIndex ? index + 1 : 0;
+      update();
+    }, 3500);
+  }
+
+  function stopAuto() {
+    if (autoInterval) { 
+      clearInterval(autoInterval); 
+      autoInterval = null; 
+    }
+  }
+
+  function restartAuto() {
+    stopAuto();
+    startAuto();
+  }
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+
+  window.addEventListener('resize', () => {
+    createDots();
+    const total = cards.length;
+    const view = cardsPerView();
+    const maxIndex = Math.max(0, total - view);
+    if (index > maxIndex) index = maxIndex;
+    update();
+  });
+
+  createDots();
+  update();
+  startAuto();
+
+})();
+</script>
+<script>
+/* ============================================
+   FLOATING CAR ANIMATION
+============================================ */
+(function(){
+  const car = document.querySelector('.car');
+  if (car) {
+    let pos = 0;
+    function animate(){
+      pos += 0.05;
+      car.style.transform = `translateX(-50%) translateY(${Math.sin(pos) * 6}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+})();
+</script>
+<script>
+/* ============================================
+   NAVBAR SCROLL EFFECT
+============================================ */
+(function(){
+  const nav = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+})();
+</script>
+<script>
+/* ============================================
+   MOBILE MENU + DROPDOWN
+============================================ */
+(function(){
+  const btn = document.getElementById("menu-btn");
+  const mobileNav = document.getElementById("mobile-nav");
+  const backdrop = document.getElementById("backdrop");
+
+  const mobileDropBtn = document.querySelector(".mobile-drop-btn");
+  const mobileDropContent = document.querySelector(".mobile-dropdown-content");
+
+  // open mobile menu
+  btn.addEventListener('click', () => {
+    mobileNav.classList.add("active");
+    backdrop.classList.add("show");
+    document.body.style.overflow = "hidden";
+  });
+
+  // close mobile menu
+  backdrop.addEventListener('click', () => {
+    mobileNav.classList.remove("active");
+    backdrop.classList.remove("show");
+    document.body.style.overflow = "auto";
+  });
+
+  // mobile dropdown toggle
+  mobileDropBtn.addEventListener("click", () => {
+    mobileDropContent.classList.toggle("show");
+  });
+
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
