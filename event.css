@@ -1,0 +1,224 @@
+*{
+     font-family:Arial, sans-serif;
+     word-wrap: break-word;
+     overflow-wrap: break-word;
+}
+
+.back{
+    background: url(image/h1_hero2.jpg.webp) no-repeat;
+    background-size: cover;
+    padding-top: 150px !important;
+}
+
+.navbar{
+    background-color: white !important;
+     /* background: linear-gradient(180deg, rgb(29,74,122) 0%, rgba(4,33,62,0.96) 100%); */
+}
+
+.color1{
+    color: #7ea0ff;
+}
+
+.back1{
+    background-color: rgba(126, 160, 255, 0.05);
+}
+
+.color3{
+    background:#f8c428 !important;
+}
+
+.color2{
+    color: rgb(0, 9, 94);
+}
+
+.cardimagehover img{
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+    transform-origin: center center;
+}
+
+.card1:hover img{
+    transform: scale(1.1);
+}
+
+.card1 a{
+    text-decoration: none;
+}
+
+.cardimagehover{
+    overflow: hidden;
+}
+
+.youtube{
+    height: 80vh;
+    background: url(image/video-bg.jpg.webp) no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+}
+
+.youtube a{
+    text-decoration: none;
+    outline: 6px white solid;
+    border-radius: 100%;
+  
+}
+
+
+.fa-play{
+    color: white;
+ 
+}
+:root {
+  --slider-duration: 22s;
+  --slider-height: 260px;
+}
+
+/* کانتینر اسلایدر */
+.continuous-slider {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+/* ریل حرکت */
+.continuous-slider .track {
+  display: flex;
+  animation: scroll-left linear infinite;
+  animation-duration: var(--slider-duration);
+}
+
+/* هر عکس */
+.continuous-slider .item {
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(100% / 5);
+  height: var(--slider-height);
+  overflow: hidden;
+}
+
+/* عکس */
+.continuous-slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* لایه شفاف بعد از Hover */
+.continuous-slider .item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(237, 231, 173, 0.256);
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+/* آیکون IG */
+.insta-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  color: #170101;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  transition: 0.35s ease;
+  pointer-events: none;
+}
+
+/* Hover Effects */
+.continuous-slider .item:hover::after {
+  opacity: 1;
+}
+.continuous-slider .item:hover .insta-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* انیمیشن حرکت بی‌پایان */
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ریسپانسیو */
+@media (max-width: 992px) {
+  :root { --slider-height: 220px; }
+  .continuous-slider .item { width: calc(100% / 3); }
+}
+@media (max-width: 768px) {
+  :root { --slider-height: 180px; }
+  .continuous-slider .item { width: calc(100% / 2); }
+}
+.track{
+  gap: 0;
+}
+
+
+
+/* footer */
+
+footer{
+   background-color: #0d1b4c;
+    color: white;
+}
+
+.footer-bottom{
+    background:#091433;
+}
+
+.footer-phone{
+    color:#f8c428 !important;
+}
+
+footer a{
+    text-decoration: none;
+    color: white;
+}
+
+footer ul{
+    padding: 0;
+}
+
+footer li{
+    list-style-type: none;
+    color: rgba(235, 232, 232, 0.808);
+}
+
+footer li a{
+    color: rgba(235, 232, 232, 0.808);
+}
+
+footer a:hover{
+    color: #f8c428;
+}
+
+.footer-social i{
+    background-color: white;
+    color: #091433;
+    border-radius: 2px;
+    transition: 0.5s !important;
+}
+
+.footer-social i:hover{
+    color: #091433;
+    background-color: #f8c428;
+    margin-left: 5px;
+}
+
+.lasta{
+    background-color: rgb(126, 160, 255);
+    color: white;
+    position: fixed;
+    bottom: 18px;
+    right: 15px;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.lasta:hover{
+    color: white;
+}
